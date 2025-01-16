@@ -46,6 +46,9 @@ while not log_in:
         print(f"Please enter the right answer")
         log_in = False
 
+# Need to keep the username to add todo to the same user
+# It will not add something to "todo". It will add something to "Username"
+
 to_do_loop = True
 
 while to_do_loop:
