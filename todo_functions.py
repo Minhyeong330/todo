@@ -16,7 +16,7 @@ def user_check(file_path, user_name):
 def user_add(file_path, new_user):
     with open(file_path, 'r', encoding = 'utf-8') as file:
         data = json.load(file)
-        data["names"].append(new_user)
+        data["names"].update({new_user: []})
     with open(file_path, 'w', encoding='utf-8') as file:
         json.dump(data, file, indent=4)
 
@@ -32,21 +32,21 @@ def remove_user(file_path, list_number):
     with open(file_path, 'w', encoding='utf-8') as file:
         json.dump(data, file, indent=4)
 
-def view_to_do_list(file_path):
+def view_to_do_list(file_path, user_name):
     with open(file_path, 'r', encoding='utf-8') as file:
         data = json.load(file)
-        print(data["todo"])
+        print(data["names"][user_name])
 
-def add_to_do(file_path, new_to_do):
+def add_to_do(file_path, user_name, new_to_do):
     with open(file_path, 'r', encoding = 'utf-8') as file:
         data = json.load(file)
-        data['todo'].append(new_to_do)
+        data["names"][user_name].append(new_to_do)
     with open(file_path, 'w', encoding='utf-8') as file:
         json.dump(data, file, indent=4)
 
-def remove_to_do(file_path, list_number):
+def remove_to_do(file_path, user_name, list_number):
     with open(file_path, 'r', encoding = 'utf-8') as file:
         data = json.load(file)
-        data['names'].pop(list_number)
+        data["name"][user_name].pop(list_number)
     with open(file_path, 'w', encoding='utf-8') as file:
         json.dump(data, file, indent=4)

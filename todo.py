@@ -16,8 +16,44 @@ while not log_in:
                 user_name = input('Please enter your username: ').upper()
                 if user_check(file_path, user_name) == True:
                     print(f"Welcome, {user_name}!")
-                    user_name_log = True
-                    log_in = True
+                    todo_loop = True
+                    while todo_loop:
+                        try:
+                            options = int(input("Please select options: \n1. View list \n2. Add to list \n3. Remove from list \n4. Exit \n"))
+                            if options == 1:
+                                view_to_do_list(file_path, user_name)
+                            elif options == 2:
+                                new_to_do = input("Please enter to-do: ")
+                                add_to_do(file_path, user_name, new_to_do)
+                            elif options == 3:
+                                list_wanna_remove = int(input("Please enter the list number: "))
+                                remove_to_do(file_path, user_name, list_wanna_remove)
+                            elif options == 4:
+                                print("Exit")
+                                break
+                            else:
+                                raise ValueError
+                            todo_loop = False
+                            user_name_log = True
+                            log_in = True
+                        except ValueError:
+                            print("Please enter the right option")
+                            todo_loop = True
+                        question = True
+                        while question:
+                            try:     
+                                last_question = input("Do you still want to edit the list? [Y/N]: ").upper()
+                                if last_question == 'Y':
+                                    question = False
+                                    todo_loop = True
+                                elif last_question == 'N':
+                                    print("Done")
+                                    question = False
+                                else:
+                                    raise ValueError
+                            except ValueError:
+                                print("Please enter right answer")
+                                question = True
                 elif user_check(file_path, user_name) == False:
                     user_retry = int(input("We can't find your username. Please enter correct username or create new one \n 1. New try \n 2. create a new user \n")) # Make sure the return by input() is always 'str'
                     retry = False
@@ -45,33 +81,3 @@ while not log_in:
     except ValueError:
         print(f"Please enter the right answer")
         log_in = False
-
-# Need to keep the username to add todo to the same user
-# It will not add something to "todo". It will add something to "Username"
-
-to_do_loop = True
-
-while to_do_loop:
-    to_do_options = input("Please select options: \n1. View list \n2. Add to list \n3. Remove from list \n4. Exit \n")
-    if to_do_options == 1:
-        view_to_do_list(file_path)
-    elif to_do_options == 2:
-        new_to_do = input("Please type in the new to-do list: ")
-        add_to_do(file_path,new_to_do)
-    elif to_do_options == 3:
-        list_wanna_remove = int(input("Please enter the number of the list that you want to remove: "))
-        remove_to_do(file_path, list_wanna_remove-1)
-    elif to_do_options == 4:
-        print("Exit")
-    to_do_loop = False
-
-last_edit = False
-
-try:
-    last_question = input("Do you still want to edit your list? [Y/N]: ").upper()
-    if  last_question == 'Y':
-        to_do_loop = True
-    elif last_question == 'N':
-        print('Done')
-except ValueError:
-    print("Please type in the right answer")
