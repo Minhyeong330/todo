@@ -4,7 +4,7 @@ def file_open(file_path: str) -> dict:
     with open(file_path, 'r', encoding='utf-8') as file:
         data = json.load(file)
         return data
-
+      
 def user_exists(file_path: str, user_name: str) -> dict:
     file_open(file_path)
     data = file_open(file_path)
