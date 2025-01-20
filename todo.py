@@ -10,29 +10,30 @@ logged_in = False
 
 while not logged_in:
     try:
-        user_name_log = False
-        while not user_name_log:
-            if user_check(file_path, user_name):
+        user_name_exist = False
+        while not user_name_exist:
+            if user_exists(file_path, user_name):
                 print(f"Welcome, {user_name}!")
-                user_name_log = True
+                user_name_exist = True
                 logged_in = True
-            elif not user_check(file_path, user_name):
-                user_retry = int(input("We can't find your username. Please enter correct username or create new one \n 1. New try \n 2. create a new user \n")) # Make sure the return by input() is always 'str'
-                retry = False
-                while not retry: # while loop for a correct username
+            elif not user_exists(file_path, user_name):
+                login_retry = int(input("We can't find your username. Please enter correct username or create new one \n 1. New try \n 2. create a new user \n")) # Make sure the return by input() is always 'str'
+                retry_to_log_in = False
+                while not retry_to_log_in: # while loop for a correct username
                     try:
-                        if user_retry == 1: # Go back to user_name_log - Why doesn't go back to while not user_name_log
-                            user_name_log = False
-                        elif user_retry == 2: # Add a new username, and go to todo
+                        if login_retry == 1: # Go back to user_name_log - Why doesn't go back to while not user_name_log
+                            print("Please re-login")
+                            raise SystemExit
+                        elif login_retry == 2: # Add a new username, and go to todo
                             user_name = input('Please enter your new user name: ').upper()
                             user_add(file_path, user_name)
                             print(f"Welcome! {user_name} has been created")
-                            user_name_log = True
-                        retry = True
-                        logged_in = True
+                            user_name_exist = True
+                            retry_to_log_in = True
+                            logged_in = True
                     except ValueError:
                         print("Please type the right answer")
-                        retry = False
+                        retry_to_log_in = False
             else:
                 raise ValueError
     except ValueError:
