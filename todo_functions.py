@@ -5,7 +5,7 @@ def file_open(file_path: str) -> dict:
         data = json.load(file)
         return data
 
-def user_check(file_path, user_name):
+def user_check(file_path: str, user_name: str):
     with open(file_path, 'r', encoding='utf-8') as file:
         data = json.load(file)
         if user_name in data["names"]:
