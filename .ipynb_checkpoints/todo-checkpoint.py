@@ -26,7 +26,7 @@ while not logged_in:
                             raise SystemExit
                         elif login_retry == 2: # Add a new username, and go to todo
                             user_name = input('Please enter your new user name: ').upper()
-                            add_user(file_path, user_name)
+                            user_add(file_path, user_name)
                             print(f"Welcome! {user_name} has been created")
                             user_name_exist = True
                             retry_to_log_in = True
@@ -62,18 +62,18 @@ while todo_loop:
     except ValueError:
         print("Please enter the right option")
         todo_loop = True
-    keep_editing_todo_list = True
-    while keep_editing_todo_list:
+    question = True
+    while question:
         try:     
-            user_still_want_edit = input("Do you still want to edit the list? [Y/N]: ").upper()
-            if user_still_want_edit == 'Y':
-                keep_editing_todo_list = False
+            last_question = input("Do you still want to edit the list? [Y/N]: ").upper()
+            if last_question == 'Y':
+                question = False
                 todo_loop = True
-            elif user_still_want_edit == 'N':
+            elif last_question == 'N':
                 print("Done")
-                keep_editing_todo_list = False
+                question = False
             else:
                 raise ValueError
         except ValueError:
             print("Please enter right answer")
-            keep_editing_todo_list = True
+            question = True
